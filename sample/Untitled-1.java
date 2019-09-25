@@ -1,9 +1,6 @@
-class sample{
+class code {
     public static void main(String[] args){
-        for(int i=1;i<=3;i++){
-            int x=i-1;
-        System.out.println(x);
-        }
+        int arr[] = new int [5];
+        System.out.print(arr);
     }
-
 }
