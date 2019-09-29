@@ -2,6 +2,24 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ContactsManager",
+            "request": "launch",
+            "mainClass": "ContactsManager"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Cardlog",
+            "request": "launch",
+            "mainClass": "Cardlog"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - sample",
+            "request": "launch",
+            "mainClass": "sample"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Sample",
             "request": "launch",
             "mainClass": "Sample"
