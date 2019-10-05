@@ -4,9 +4,9 @@ public class Sample{
         a.setTitle("Tom");
         a.setAuthor("AV");
         a.setPages(999);
-        a.getTitle();
-        a.getAuthor();
-        a.getPages();
+        // a.getTitle();
+        // a.getAuthor();
+        // a.getPages();
         System.out.println(a.getTitle() +" "+a.getAuthor()+" "+a.getPages());
 
         

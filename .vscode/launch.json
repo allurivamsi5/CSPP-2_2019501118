@@ -2,6 +2,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - cal",
+            "request": "launch",
+            "mainClass": "cal"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Dog",
+            "request": "launch",
+            "mainClass": "Dog"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - ContactsManager",
             "request": "launch",
             "mainClass": "ContactsManager"

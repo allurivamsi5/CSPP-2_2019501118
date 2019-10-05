@@ -1,4 +1,4 @@
-class Dog{
+ class Dog{
     public static void main(String[] args){
         details puppy = new details("micky","abc","white",13);
         System.out.println(puppy.toString());
