@@ -1,10 +1,12 @@
-/** a data type List.java that
+/**
+ * List Data Type. Write a data type List.java that
  * represents an array of homogeneous elements. 
  * Implement the following public API which can be 
  * used as an API for the rest of your course.
  * 
  * @author Praveen Garimella
  * @author Siva Sankar
+ * @author Sai Teja Kondapalli 
  * 
  * @since August - 2018
  */
@@ -67,7 +69,7 @@ public class List {
     // declare a private int size
     // again, don't initialize it here
     // variable initialization should be done in the constructor
-
+    private int size;
     /*
      * The purpose of the constructor is to initialize the
      * class variables with some default values.
@@ -84,7 +86,8 @@ public class List {
         // How many items do we have in the list when you create it?
         // An empty list has how many items?
         // That is the initial value to use for size.
-
+        array = new int[10];
+        size = 0;
         //  Your code goes here.....
     }
     
@@ -102,6 +105,11 @@ public class List {
     public void add(int item) {
         //Inserts the specified element at the end of the list.
         //  Your code goes here.....
+        if(array.length>size)
+        {
+            array[size++] = item;
+        }
+        
     }
 
     /*
@@ -114,6 +122,7 @@ public class List {
     public int size() {
         // replace the code below to implement the size method
         //  Your code goes here.....
+        return size;
     }
 
     /*
@@ -140,6 +149,16 @@ public class List {
         // write the logic for remove here.
         // Think about what to do to the size variable.
         // Your code goes here.....
+        if(index<size)
+        {
+            int i;
+            for(i = index;i<size;i++)
+            {
+                array[i] = array[i+1];
+            }
+            array[i] = 0;
+            size-- ;
+        }
     }
 
     /*
@@ -156,6 +175,14 @@ public class List {
     public int get(int index) {
         // Replace the code below to write the code for get
         // Your code goes here.....
+        if(index > size)
+        {
+            return -1;
+        }
+        else
+        {
+            return array[index];
+        }
     }
 
     /*
@@ -180,6 +207,14 @@ public class List {
      */
     public String toString() {
         // Your code goes here.....
+        String s="[";
+        int i;
+        for (i=0;i<size-1;i++)
+        {
+            s+=array[i]+",";
+        }
+        s+=array[i]+"]";
+        return s;
     } 
     
     /*
@@ -190,6 +225,14 @@ public class List {
      */
     public boolean contains(int item) {
         // Your code goes here.....
+        for(int i = 0;i<size;i++)
+        {
+            if(array[i]==item)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -199,6 +242,14 @@ public class List {
      */
     public int indexOf(int item) {
         // Your code goes here.....
+        for(int i = 0;i<size;i++)
+        {
+            if(array[i]==item)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
