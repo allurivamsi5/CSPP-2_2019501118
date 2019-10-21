@@ -1,20 +1,21 @@
 /**
  * List Data Type. Write a data type List.java that
- * represents an listay of homogeneous elements.
- * Implement the following public API which can be
+ * represents an listay of homogeneous elements. 
+ * Implement the following public API which can be 
  * used as an API for the rest of your course.
- *
+ * 
  * @author Praveen Garimella
  * @author Siva Sankar
  * @author Jagan
- *
+ * 
  * @since August - 2018
  */
 
- import java.util.Arrays;
- 
-public abstract class AbstractList implements ListInterface {
-    // Implement all the methods mentioned to build a ListADT and
+import java.util.Arrays;
+//import java.util.List;
+
+public abstract class AbstractList implements ListInterface  {
+    // Implement all the methods mentioned to build a ListADT and 
     // OrderedList ADT
 
     /*
@@ -42,6 +43,7 @@ public abstract class AbstractList implements ListInterface {
     // declare a private int[]
     // don't create the listay yet using new
     // that's the job of the List constructor
+    
 
     /*
      * What are the other class variables needed for creating a list?
@@ -60,7 +62,7 @@ public abstract class AbstractList implements ListInterface {
      * So, to keep track of the size we need a variable called size
      * Again, we use private as we don't want that size variable
      * to be accessed by the methods that are outside of the List class.
-     *
+     * 
      */
 
     // declare a private int size
@@ -69,7 +71,7 @@ public abstract class AbstractList implements ListInterface {
 
     public int[] list;
     public int size;
-    public int capacity;
+
     /*
      * The purpose of the constructor is to initialize the
      * class variables with some default values.
@@ -88,9 +90,8 @@ public abstract class AbstractList implements ListInterface {
         // That is the initial value to use for size.
         list = new int[10];
         size = 0;
-        capacity = 10;
     }
-
+    
     /*
      * Overloaded constructor with list capacity as argument
      * The default constructor sets the list capacity to 10
@@ -99,18 +100,17 @@ public abstract class AbstractList implements ListInterface {
      * There will be some clients of the ADT that will require
      * the list to contain n elements which is known
      * at the time of creating the list.
-     *
+     * 
      * The overloaded constructor is a way to initialize a list with
      * a list capacity of n items where n is given as an argument to
      * constructor.
-     *
+     * 
      */
     public AbstractList(int capacity) {
         size = 0;
         list = new int[capacity];
-        this.capacity = capacity;
     }
-
+    
     /*
      * The add method does what the name suggests.
      * Add an int item to the list.
@@ -119,105 +119,129 @@ public abstract class AbstractList implements ListInterface {
      * Is it the same as the end of the listay?
      * Think about how you can use the size variable to add item
      * to the list.
-     *
+     * 
      * The method returns void (nothing)
      */
-    abstract public void add(int item);
+    public void add(int item) {
         //Inserts the specified element at the end of the list.
         // TODO
         // Your code goes here.
-
+        if(list.length<=size){
+            resize();
+        }
+        list[size++] = item;
+    
+    }
 
     /**
      * Given an index and an item, adds this item at a particular index.
-     *
+     * 
      * Example:
-     *
+     * 
      * Let's say for example the List object contains : [5,-2,3,1,6,-1]
-     *
+     * 
      * Input : add(1, 2)
      * First Move all the elements to the right by one upto the given index. So, you
      * will be having a gap at the given index where you can insert a new element / item
      * that is passed as parameter.
      * Output : [5,2,-2,3,1,6,-1]
-     *
+     * 
      * Can you think of the following works:
      * Let's say for example the List object contains : [5,-2,3,1,6,-1]
      * Input: add(20, 2) : As there are 6 elements, you can't insert an element / item
      * after 6th index.
-     *
+     * 
      * Output: [5,2,-2,3,1,6,-1]
-     *
+     * 
      * Think of on which object this method can be called. List / OrderedList and etc.
      */
     public final void add(int index, int item) {
         // TODO
         // Your code goes here.
-        if (index < size && index >= 0) {
-            for (int j = size; j > index; j--) {
-                list[j] = list[j - 1];
+        
+        if(list.length <= size){
+            resize();
+        }
+        if( index >= 0 && index < size) {
+            for(int i = size-1; i >= index ; i--) {
+                list[i+1] = list[i];
             }
             list[index] = item;
-            size++;///-------------------------------------------Missed it
+            size++;
         }
+        
+        
+       
     }
 
     /**
      * Appends all of the elements in the specified list to the end of this list, or
      * it will be added in order if the list is OrderedList, in the order that
      * they are returned by the specified list's Iterator.
-     *
+     * 
      * @param lst list containing elements to be added to this list.
      */
     public void addAll(List lst) {
         // TODO
         // Your code goes here.
-        int[] arr = lst.list;
-        int arrSize = lst.size;    ///since list, may have trailing zero's
+        for(int i = 0;i<lst.size();i++){
+            add(lst.get(i));
+        }
 
-        addAll(arr);
-        // for (int i = 0; i < arrSize; i++) {
-        //     add(arr[i]);
-        // }
+
+                
     }
 
     /**
      * This method adds all the items of the arr to this list.
-     * @param arr is an array of items that should be added to
+     * @param arr is an array of items that should be added to 
      * this list.
      */
     public void addAll(int[] arr ){
         // TODO
         // Your code goes here.
-        for (int i = 0; i < arr.length; i++) {
+        for(int i = 0;i<arr.length;i++){
             add(arr[i]);
         }
+        
     }
 
     /*
      * The size method returns the value of the size.
      * The purpose of the method is to announce the size of the list
      * to the objects outside the list
-     *
+     * 
      * The method returns an int. Empty list should return 0.
      */
     public int size() {
         // replace the code below to implement the size method
         // TODO
         // Your code goes here.
-        return size;
+        if(size != 0){
+            return size;
+        }
+        return 0;
+        
+     
     }
 
     /**
      * Resizes the array by doubling the space.
      */
-    abstract public void resize();
+    public void resize() {
+        // TODO
+        // Your code goes here.
+        list = Arrays.copyOf(list, 2 * list.length);
+        
+        
+        
+    }
 
     /*
      * The remove method does what the name suggests.
      * Removes an int item, specified by the index argument, from the list
      * It also does an additional step.
-     * Think about what happens when
+     * Think about what happens when 
      * an item is removed from the middle of the list
      * It creates a hole in the list, right?
      * This would mean, all the items that are
@@ -238,14 +262,11 @@ public abstract class AbstractList implements ListInterface {
         // Think about what to do to the size variable.
         // TODO
         // Your code goes here.
-        if (index < size) {
-            int i = index;
-            for (int j = i + 1; j < size; j++) {
-                this.list[i] = this.list[j];
-                i++;
+        if(index<size){
+            for(int i = index;i<size;i++){
+                list[i] = list[i+1];
             }
-            this.list[this.size] = 0;
-            this.size--;
+            size-- ;
         }
     }
 
@@ -257,17 +278,21 @@ public abstract class AbstractList implements ListInterface {
      * How can an element not be there at a given position?
      * Well, if the position is greater than the number of items
      * in the list then that would mean the item doesn't exist.
-     * How do we check if the position is greater than the
+     * How do we check if the position is greater than the 
      * number of items in the list? Would size variable be useful?
      */
     public int get(int index) {
         // Replace the code below to write the code for get
         // TODO
         // Your code goes here.
-        if (index < this.size && index >= 0) {
-            return this.list[index];
+        if(index>=0 && index < size){
+            return list[index];
         }
-        return -1;
+        else{
+            return -1;
+    }
+
+        
     }
 
     /*
@@ -279,7 +304,7 @@ public abstract class AbstractList implements ListInterface {
      * System.out.println(l);
      * This statement is a shortcut for
      * System.out.println(l.toString());
-     *
+     * 
      * So, implement the toString method to display the items
      * in the list in the square brackets notation.
      * i.e., if the list has numbers 1, 2, 3
@@ -292,15 +317,15 @@ public abstract class AbstractList implements ListInterface {
      */
     public String toString() {
         // Replace the code below
-        String out = "[";
-        for (int i = 0; i < this.size - 1; i++) {  ///if size remain zero
-                                                //things will be cked up
-            out += this.list[i] + ",";
-        }
-        out += this.list[this.size - 1] + "]";
-        return out;
-    }
-
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(int i=0; i<size-1; i++)
+            sb.append(list[i] + ",");
+        sb.append(list[size-1]);
+        sb.append("]");
+        return sb.toString();
+    } 
+    
     /*
      * Contains return true if the list has
      * the item passed as an argument to the method
@@ -310,40 +335,51 @@ public abstract class AbstractList implements ListInterface {
     public boolean contains(int item) {
         // TODO
         // Your code goes here.
-        for (int i = 0; i < this.size; i++) {
-            if (this.list[i] == item) {
+        for(int i = 0;i<size;i++){
+            if(list[i]==item){
                 return true;
             }
         }
         return false;
+
+        // return index(item)==-1 ? false :True
+
+        
     }
 
     /*
      * Returns the index of the first occurrence of the specified element in this list,
      * or -1 if this list does not contain the element.
      */
-    abstract public int indexOf(int item);
+    public int indexOf(int item) {
         // TODO
         // Your code goes here.
+        for(int i = 0;i<size;i++){
+            if(list[i]==item){
+                return i;
+            }
+        }
+        return -1;
+    }
 
     /**
-     * Returns the index of the last occurrence of the specified element in this list,
-     * or -1 if this list does not contain the element.
+     * Returns the index of the last occurrence of the specified element in this list, 
+     * or -1 if this list does not contain the element. 
      * More formally, returns the highest index i, or -1 if there is no such index.
      * @param item, element to search for
-     * @return the index of the last occurrence of the specified element in this list,
+     * @return the index of the last occurrence of the specified element in this list, 
      * or -1 if this list does not contain the element
      */
     public int lastIndexOf(int item) {
         // TODO
         // Your code goes here.
-        int lastIndex = -1;
-        for (int i = 0; i < size; i++) {
-            if (list[i] == item) {
-                lastIndex = i;
+        // int index =-1;
+        for(int i=size ;i>=0;i--){
+            if(list[i]==item){
+                return  i;
             }
         }
-        return lastIndex;
+        return -1;
     }
 
     /**
@@ -354,19 +390,21 @@ public abstract class AbstractList implements ListInterface {
     public int count(int item) {
         // TODO
         // Your code goes here.
-        int count = 0;
-        for (int i = 0; i < size; i++) {
-            if (list[i] == item) {
-                count++;
+        int c=0;
+        for(int i=0;i<size;i++){
+            if(list[i]==item){
+                c++;
             }
+        
         }
-        return count;
-    }
+        
+        return c;
+    } 
 
     /**
-     * Returns a view of the portion of this list between the specified fromIndex,
-     * inclusive, and toIndex, exclusive. (If fromIndex and toIndex are equal,
-     * the returned list is empty.) The returned list is backed by this list,
+     * Returns a view of the portion of this list between the specified fromIndex, 
+     * inclusive, and toIndex, exclusive. (If fromIndex and toIndex are equal, 
+     * the returned list is empty.) The returned list is backed by this list, 
      * so non-structural changes in the returned list are reflected in this list,
      *  and vice-versa. The returned list supports all of the optional list operations.
      * @param fromIndex low endpoint (inclusive) of the subList
@@ -376,25 +414,20 @@ public abstract class AbstractList implements ListInterface {
     public List subList(int fromIndex, int toIndex) {
         // TODO
         // Your code goes here.
-        if((toIndex == fromIndex) || (toIndex < 0 || fromIndex < 0)) {
-            return null;
+        if(fromIndex!=toIndex && (fromIndex>=0 && toIndex>=0) && (fromIndex <= size && toIndex <= size)){
+            List list2 =new List();
+            for(int i=fromIndex;i<toIndex;i++){
+                list2.add(list[i]);
+            }
+            return list2;
         }
-        List subList = new List(toIndex - fromIndex);
-
-        int j = 0;
-        for (int i = fromIndex; i < toIndex; i++) {
-            subList.list[j] = list[i];
-            subList.size++;  //-------------------------missed similarOne again
-                             // size remained 0, on toString() throwing error
-            j++;
-
-            // subList.add(list[i]);  // makiang size private would have helped
-        }
-        return subList;
+         return null;
+        
+        
     }
 
     /**
-     * Replaces the element at the specified position in this list
+     * Replaces the element at the specified position in this list 
      * with the specified element.
      * @param index - index of the element to replace
      * @param element - element to be stored at the specified position
@@ -403,8 +436,6 @@ public abstract class AbstractList implements ListInterface {
     public void set(int index, int item) {
         // TODO
         // Your code goes here.
-        if (index < size) {
-            list[index] = item;
-        }
+        return;
     }
 }
