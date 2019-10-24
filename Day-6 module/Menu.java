@@ -1,29 +1,30 @@
 /**
  * This menu class creates objects for BookYourShow and Show objects
- * and adds the shows objects to the BookYourShow Object. Then the 
+ * and adds the shows objects to the BookYourShow Object. Then the
  * Patrons can book the tickets based on the shows available.
- * 
+ *
  * This is a sample and skeleton code that gives you an idea of how
  * to create objects for different classes.
- * 
- * You can have your own test cases and test your Show, Patron and 
+ *
+ * You can have your own test cases and test your Show, Patron and
  * BookYourShow classes.
- * 
+ *
  * @author Praveen Garimella
  * @author Siva Sankar
- * 
+ *
  */
-
-public class Menu {
-  public static void main(String[] args) {
-
-    //  Creating an object for BookYourShow application.
+public final class Menu {
+  private Menu() {
+  }
+  /**.
+   *
+   * @param args is used
+   */
+  public static void main(final String[] args) {
     BookYourShow book = new BookYourShow();
-
-    String movieName = "Mission Impossible";
+    String movieName = "Aditya Varma";
     String datetime = "Aug 18, 2015 17:30";
-    String[] seats = {"A1","A2","A3","B1","B2","B3","C1","C2"};
-    
+    String[] seats = {"A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2"};
     //  Creating an object for Show with the movieName, datetime and
     //  the number of seats and adding the show to the BookYourShow
     //  Object.
@@ -34,7 +35,7 @@ public class Menu {
     //  Creating an object for Show with the movieName, datetime and
     //  the number of seats of seats and adding the show to the BookYourShow
     //  Object.
-    movieName = "Mission Impossible";
+    movieName = "Aditya Varma";
     datetime = "Aug 18, 2015 10:30";
     show = new Show(movieName, datetime, seats);
     book.addAShow(show);
@@ -46,27 +47,23 @@ public class Menu {
     datetime = "Aug 18, 2015 15:30";
     show = new Show(movieName, datetime, seats);
     book.addAShow(show);
-
     //  Searching for a show at a specific date and time.
-    Show result = book.getAShow("Mission Impossible", "Aug 18, 2015 17:30");
-    if(result == null)
+    Show result = book.getAShow("Aditya Varma", "Aug 18, 2015 17:30");
+    if (result == null) {
       System.out.println("No shows available!");
-    else
+    } else {
       System.out.println(result);
-
+    }
     //  Now the Patron's are trying to book the tickets for which the
     //  show is available based on the previous step.
-    Patron p = new Patron("Praveen", "9989968765");
+    Patron p = new Patron("Dhruv vikram", "8790690689");
     String[] s = {"B1", "B2"};
     result.bookAShow(p, s);
-
-    Patron r = new Patron("Varshini", "888888888");
+    Patron r = new Patron("vikram chiyaan", "8790690679");
     result.bookAShow(r, s);
-
     //  Print the tickets Once the tickets are booked....
     result.printTickets(p);
     result.printTickets(r);
-    
     //book.printShows();
   }
 }

@@ -1,17 +1,14 @@
-class Patron{
-    String name;
-	String mobileNumber;
-	String ticket;
-	Patron(String name, String number){
-		this.name = name;
-		this.mobileNumber = number;
+class Patron {
+    /**.
+     * name is used
+     */
+    public String name;
+    /**.
+     * phonenumber is used
+     */
+    public String phone;
+    Patron(final String n, final String p) {
+        this.name = n;
+        this.phone = p;
     }
-    public void setTicket(String t){
-		this.ticket = t;
-	}
-
-	public String toString(){
-		return this.ticket;
-	}
-    
 }

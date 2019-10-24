@@ -1,11 +1,11 @@
 /**
  * This is JUnit that tests the methods of the Clock.
  * This contains 2 testcases.
- * 
+ *
  * Please don't run this file.
- * You can add your own test cases to this file by just copy and 
+ * You can add your own test cases to this file by just copy and
  * paste the last three lines of the code (TestCase2).
- * 
+ *
  * @author: Siva Sankar
  */
 
@@ -49,13 +49,13 @@ public class TestJUnit {
       clock.toc(119);
       assertEquals("5. ", "04:59", clock.toString());
       clock.tic();
-      assertEquals"6. ", ("05:00", clock.toString());
+      assertEquals("6. ", "05:00", clock.toString());
       clock.toc(12000);
       assertEquals("7. ", "13:00", clock.toString());
       clock.toc(661);
-      assertEquals"8. ", ("00:01", clock.toString());
+      assertEquals("8. ", "00:01", clock.toString());
       clock.toc(-100);
-      assertEquals"9. ", ("00:01", clock.toString());
+      assertEquals("9. ", "00:01", clock.toString());
    }
 
    @Test
