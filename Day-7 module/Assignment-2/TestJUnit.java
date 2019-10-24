@@ -1,11 +1,11 @@
 /**
  * This is JUnit that tests the methods of the Clock.
  * This contains 2 testcases.
- *
+ * 
  * Please don't run this file.
- * You can add your own test cases to this file by just copy and
+ * You can add your own test cases to this file by just copy and 
  * paste the last three lines of the code (TestCase2).
- *
+ * 
  * @author: Siva Sankar
  */
 

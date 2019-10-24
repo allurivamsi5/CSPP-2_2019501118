@@ -1,122 +1,96 @@
 /**
- * Clock data type. Write a data type Clock.java that represents time on a
- * 24-hour clock, such as 00:00, 13:30, or 23:59. Time is measured in hours
- * (00–23) and minutes (00–59). To do so, implement the following public API:
+ * Clock data type. Write a data type Clock.java that
+ * represents time on a 24-hour clock, such as 00:00, 13:30, or
+ * 23:59. Time is measured in hours (00–23) and minutes (00–59).
+ * To do so, implement the following public API:
  *
  * @author Siva Sankar
  */
 
 public class Clock {
     // Creates a clock whose initial time is h hrs and m min.
-    int h;
-    int m;
     /**
-     * The parameterised constructor will instatiates the object with the values of
+     * The parameterised constructor will
+     *  instatiates the object with the values of
      * the parameters h and m to the respective hrs nad min.
      * @param h
      * @param m
      */
-    public Clock(int h, int m) {
-    		this.h = h;
-    		this.m = m;
+    int hours;
+    int minutes;
+    public Clock(final int h, final int m) {
+        this.hours = h;
+        this.minutes = m;
     }
 
-    // Creates a clock whose initial time is specified as a string, using the format HH:MM.
+    // Creates a clock whose initial time
+    //  is specified as a string, using the format HH:MM.
 
-    public Clock(String s) {
-    		String[] arr = s.split(":");
-    		this.h = Integer.parseInt(arr[0]);
-    		this.m = Integer.parseInt(arr[1]);
+    public Clock(final String s) {
+        this.hours = Integer.parseInt(s.substring(0, 2));
+        this.minutes = Integer.parseInt(s.substring(3, 5));
     }
 
     // Returns a string representation of this clock, using the format HH:MM.
     public String toString() {
-
-    	if(this.h < 10 || this.m < 10){
-    		String hr = "";
-    		String mn = "";
-    		if(this.h < 10){
-    			hr += "0" + this.h;
-    		}else{
-    			hr += this.h;
-    		}
-    		if(this.m < 10){
-    			mn += "0" + this.m;
-    		}else{
-    			mn += this.m;
-    		}
-    		return hr +":"+mn;
-    	}else{
-    		if(this.h == 24){
-    		this.h = 0;
-	    	}
-	    	else if(this.m == 60){
-	    		this.h += 1;
-	    		this.m = 0;
-	    	}
-	    	return this.h +":"+ this.m;
-	    }
+        String h = this.hours + "";
+        String m = this.minutes + "";
+        if (this.hours < 10) {
+            h = "0" + h;
+        }
+        if (this.minutes < 10) {
+            m = "0" + m;
+        }
+        return h + ":" + m;
     }
-
     // Is the time on this clock earlier than the time on that one?
     public boolean isEarlierThan(Clock that) {
-    	if(this.h < that.h){
-    		return true;
-    	}
-    	else if(this.h == that.h && this.m < that.m){
-    		return true;
-    	}
-    	return false;
+        if (this.hours < that.hours) {
+            return true;
+        } else if (this.hours == that.hours && this.minutes < that.minutes) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    private void check() {
-
-    }
-
+    // private void check()
+    // }
     // Adds 1 minute to the time on this clock.
     public void tic() {
-    	if(this.m >= 59){
-    		this.h += 1;
-    		this.m = 0;
-    	}else{
-    		this.m += 1;
-    	}
+        this.minutes++;
+        if (this.minutes == 60) {
+            this.minutes = 0;
+            this.hours++;
+        }
+        if (this.hours == 24) {
+            this.hours = 0;
+        }
     }
 
     // Adds Δ min to the time on this clock.
-    public void toc(int delta) {
-    	if(delta < 0){
-    		return;
-    	}
-    	int tem = this.m+delta;
-    	if(tem == 60){
-    		this.h += 1;
-    		if(this.h == 24){
-    			this.h = 0;
-    		}
-    		this.m = 0;
-    		return;
-    	}
-    	else if( tem <= 59){
-    		this.m += delta;
-    	}else{
-    		int hrs = delta/60;
-    		if(this.h == 23 && hrs == 1){
-    			this.h = 0;
-    		}else if(this.h+hrs <= 23){
-    			this.h += hrs;
-    		}else if (this.h + hrs == 24) {
-    			this.h = 0;
-    		}else{
-    			this.h += hrs%24;
-    		}
-    		int minRem = delta - (60*hrs);
-    		this.m += minRem;
-    	}
-   	}
-
+    public void toc(final int delta) {
+        if (delta > 0) {
+            int addmin = delta % 60;
+            int addhr = (int) Math.floor(delta / 60);
+            int finalmin = this.minutes + addmin;
+            int finalhr = this.hours + addhr;
+            if (finalmin >= 60) {
+                this.minutes = finalmin - 60;
+                finalhr++;
+            } else {
+                this.minutes = finalmin;
+            }
+            if (finalhr >= 24) {
+                this.hours = finalhr % 24;
+            } else {
+                this.hours = finalhr;
+            }
+        }
+    }
     // Test client (see below).
-    public static void main(String[] args) {
-       Clock clock = new Clock("09:30");
+    public static void main(final String[] args) {
+        Clock clock = new Clock("13:01");
+        clock.toc(660);
+        System.out.println(clock);
     }
 }
